@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SvenH Linkhub</title>
+    <!-- Google Fonts: Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --card-border: #f0f0f0;
+            --modal-bg: #ffffff;
+            --transition-speed: 0.4s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        @media (max-width: 640px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .link-block {
+                height: auto;
+                min-height: 200px;
+                border-bottom: 1px solid var(--card-border);
+            }
+        }
+
+        @media (min-width: 641px) {
+            .link-block {
+                height: 33.33vh; 
+                border-right: 1px solid var(--card-border);
+                border-bottom: 1px solid var(--card-border);
+            }
+        }
+
+        /* Link Blocks */
+        .link-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            background: #ffffff;
+            padding: 2.5rem;
+            overflow: hidden;
+        }
+
+        .link-block:hover {
+            background: #fcfcfc;
+        }
+
+        .accent-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0px;
+            transition: height 0.3s ease;
+        }
+
+        .link-block:hover .accent-bar {
+            height: 6px;
+        }
+
+        .link-block img {
+            width: 54px;
+            height: 54px;
+            margin-bottom: 1.2rem;
+            filter: grayscale(100%);
+            opacity: 0.5;
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: 2;
+        }
+
+        .link-block:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .link-block h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-align: center;
+            color: #333;
+            z-index: 2;
+        }
+
+        /* Fullpage Modal */
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-bg);
+            z-index: 9999;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        #modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+        }
+
+        .modal-icon {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 2rem;
+            border-radius: 18px;
+            padding: 10px;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .modal-content h1 {
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .modal-content p {
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            line-height: 1.6;
+            margin-bottom: 3.5rem;
+            color: #555;
+            font-weight: 400;
+        }
+
+        .visit-btn {
+            display: inline-block;
+            background-color: #000;
+            color: #fff !important;
+            padding: 1.4rem 4rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: #f5f5f5;
+            border: none;
+            color: #000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .close-btn:hover {
+            background: #000;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .animate-up {
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-container" id="linkGrid"></div>
+
+    <div id="modal">
+        <button class="close-btn" id="closeModal" aria-label="Schließen">&times;</button>
+        <div class="modal-content animate-up">
+            <img src="" id="modalIcon" class="modal-icon" alt="Icon">
+            <h1 id="modalTitle">TITLE</h1>
+            <p id="modalDescription">Description goes here.</p>
+            <a href="#" id="modalLink" target="_blank" class="visit-btn">Website besuchen</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const sites = [
+            {
+                name: "denkLabor",
+                domain: "denklabor.org",
+                color: "#2563eb",
+                desc: "Das denkLabor ist ein interdisziplinärer Raum für die Transformation von Bewusstsein und Systemen. Wir glauben: Bevor wir die Welt verändern können, müssen wir unsere Art zu denken verändern."
+            },
+            {
+                name: "Geisteswissen",
+                domain: "geisteswissen.de",
+                color: "#7c3aed",
+                desc: "Geisteswissen.de versteht sich als eine Brücke, die zwischen der oft als starr und unresonant empfundenen normativen Welt und dem tiefen Bedürfnis nach innerer Sinnfindung vermittelt."
+            },
+            {
+                name: "Gedankenwelten",
+                domain: "gedankenwelten.com",
+                color: "#db2777",
+                desc: "Gedankenwelten ist eine Plattform für reflektiertes Denken und bewusste Wahrnehmung. Sie zeigt, wie unterschiedlich Menschen Wirklichkeit erleben, und macht diese Perspektiven sichtbar – sachlich, persönlich, philosophisch."
+            },
+            {
+                name: "DigitalLabor",
+                domain: "digitallabor.eu",
+                color: "#059669",
+                desc: "Das digitalLabor bildet einen Denkraum, in dem digitale Wirklichkeiten geprüft, hinterfragt und neu geordnet werden. Philosophie, Technologie und Gesellschaft treten in Dialog, um digitale Zukunft verantwortungsvoll zu gestalten."
+            },
+            {
+                name: "Visionsuche",
+                domain: "visionsuche.de",
+                color: "#ea580c",
+                desc: "Eine Visionsuche ist ein intensiver, zeitlich begrenzter Rückzug in die Natur, der dem Suchenden ermöglicht, die üblichen Ablenkungen zu minimieren und innere Klarheit zu finden."
+            },
+            {
+                name: "KunsTT",
+                domain: "kunstt.de",
+                color: "#dc2626",
+                desc: "Kunst entsteht dort, wo innere Wirklichkeit Form findet. Sie verbindet Erfahrung, Empfindung und Bedeutung, ohne sich erklären zu müssen."
+            },
+            {
+                name: "SvenH",
+                domain: "svenh.de",
+                color: "#111111",
+                desc: "Meine persönliche Website – ein Überblick darüber, wer ich bin, was ich mache, womit ich mich beschäftige und welche Themen für mich wichtig sind."
+            },
+            {
+                name: "Svens",
+                domain: "svens.net",
+                color: "#4b5563",
+                desc: "Künstlerischer Freigeist bezeichnet eine innere Haltung, die sich nicht an Konventionen bindet, sondern aus Eigenwahrnehmung, Neugier und Mut schöpft."
+            }
+        ];
+
+        const grid = document.getElementById('linkGrid');
+        const modal = document.getElementById('modal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDescription');
+        const modalLink = document.getElementById('modalLink');
+        const modalIcon = document.getElementById('modalIcon');
+
+        function getIconUrl(domain) {
+            return `https://www.google.com/s2/favicons?sz=128&domain=${domain}`;
+        }
+
+        function initGrid() {
+            sites.forEach((site) => {
+                const block = document.createElement('div');
+                block.className = 'link-block';
+                
+                const accent = document.createElement('div');
+                accent.className = 'accent-bar';
+                accent.style.backgroundColor = site.color;
+                block.appendChild(accent);
+                
+                const iconUrl = getIconUrl(site.domain);
+                block.innerHTML += `<img src="${iconUrl}" alt="${site.name} Icon"><h2>${site.name}</h2>`;
+                
+                block.addEventListener('click', () => openModal(site));
+                grid.appendChild(block);
+            });
+        }
+
+        function openModal(site) {
+            modalTitle.innerText = site.name;
+            modalTitle.style.color = site.color;
+            modalDesc.innerText = site.desc;
+            modalLink.href = `https://${site.domain}`;
+            modalLink.style.backgroundColor = site.color;
+            modalIcon.src = getIconUrl(site.domain);
+            
+            modal.style.display = 'flex';
+            requestAnimationFrame(() => {
+                modal.classList.add('active');
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 400);
+        }
+
+        closeModalBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            closeModal();
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") closeModal();
+        });
+
+        window.onload = initGrid;
+    </script>
+</body>
+</html>
