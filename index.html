@@ -23,7 +23,7 @@
             min-height: 100vh;
         }
 
-        /* GRID SYSTEM - Große Kacheln */
+        /* GRID SYSTEM - Neue Breakpoints für 2 Spalten ab 800px und 3 Spalten ab 1200px */
         main {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -31,8 +31,12 @@
             flex-grow: 1;
         }
 
-        @media (min-width: 850px) { main { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1400px) { main { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 800px) { 
+            main { grid-template-columns: repeat(2, 1fr); } 
+        }
+        @media (min-width: 1200px) { 
+            main { grid-template-columns: repeat(3, 1fr); } 
+        }
 
         /* PROJECT CARDS */
         .project-card {
@@ -183,7 +187,6 @@
             width: 100%;
             white-space: normal;
             word-break: keep-all;
-            /* Basisgröße erhöht */
             font-size: clamp(2.5rem, 10vh, 7rem);
         }
 
@@ -339,7 +342,6 @@
             
             setTimeout(() => {
                 modal.classList.add('active');
-                // Modal-Titel Basisgröße erhöht
                 fitText(modalTitle, modalInner, 7, 0.95, 2.5); 
                 scaleModalContent();
             }, 10);
