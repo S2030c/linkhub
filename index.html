@@ -23,7 +23,7 @@
             min-height: 100vh;
         }
 
-        /* GRID SYSTEM */
+        /* GRID SYSTEM - Große Kacheln */
         main {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -31,8 +31,8 @@
             flex-grow: 1;
         }
 
-        @media (min-width: 800px) { main { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1300px) { main { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 850px) { main { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1400px) { main { grid-template-columns: repeat(3, 1fr); } }
 
         /* PROJECT CARDS */
         .project-card {
@@ -40,7 +40,7 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            aspect-ratio: 3 / 2;
+            aspect-ratio: 16 / 9;
             box-shadow: inset 0 0 0 0.5px #f1f5f9;
             background-color: #ffffff;
             display: flex;
@@ -70,8 +70,8 @@
         }
 
         .tile-icon {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             margin-bottom: 20px;
             opacity: 1; 
             filter: contrast(1.1);
@@ -85,7 +85,7 @@
 
         /* FOOTER */
         footer {
-            padding: 4rem 0;
+            padding: 5rem 0;
             text-align: center;
         }
 
@@ -128,7 +128,7 @@
 
         .modal-content {
             width: 100%;
-            max-width: 70rem;
+            max-width: 85rem;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -165,8 +165,8 @@
         #modal-icon {
             width: 160px;
             height: auto;
-            max-height: 15vh;
-            margin-bottom: 2vh;
+            max-height: 18vh;
+            margin-bottom: 3vh;
             border-radius: 24px;
             box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
             object-fit: contain;
@@ -177,48 +177,50 @@
             font-weight: 500;
             letter-spacing: 0.03em;
             text-transform: uppercase;
-            line-height: 1.1;
-            margin-bottom: 2vh;
+            line-height: 1.05;
+            margin-bottom: 3vh;
             padding: 0 1rem;
             width: 100%;
-            font-size: clamp(1.8rem, 7vh, 5rem);
+            white-space: normal;
+            word-break: keep-all;
+            /* Basisgröße erhöht */
+            font-size: clamp(2.5rem, 10vh, 7rem);
         }
 
         #modal-text {
             font-weight: 400;
             color: #334155;
-            max-width: 850px;
+            max-width: 950px;
             line-height: 1.4;
-            margin-bottom: 4vh;
+            margin-bottom: 5vh;
             padding: 0 1.5rem;
-            font-size: clamp(1.1rem, 3.5vh, 2rem);
+            font-size: clamp(1.2rem, 3.8vh, 2.4rem);
         }
 
-        /* VERGRÖSSERTER BUTTON */
         #modal-link {
             display: inline-block;
-            padding: 2.2vh 6vw; /* Deutlich größeres Padding */
+            padding: 2.5vh 6vw;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: #ffffff;
             text-decoration: none;
-            border-radius: 0.5rem; /* Etwas weichere Ecken */
-            font-size: clamp(1.1rem, 2.8vh, 1.6rem); /* Größere Schrift */
+            border-radius: 0.5rem;
+            font-size: clamp(1.2rem, 3vh, 2rem);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         #modal-link:hover { 
             transform: scale(1.05); 
-            box-shadow: 0 12px 24px rgba(0,0,0,0.15); 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15); 
         }
     </style>
 </head>
 <body class="min-h-screen">
 
     <main id="grid">
-        <div class="project-card" data-name="Lebenswelten.com" data-color="#7C3AED" data-url="https://lebenswelten.com" data-description="Lebenswelten beschreiben die Gesamtheit der Erfahrungen, Beziehungen und Bedeutungen, in denen Menschen leben. Sie strukturieren Wahrnehmung und Handeln im Alltag.">
+        <div class="project-card" data-name="Lebenswelten.com" data-color="#7C3AED" data-url="https://lebenswelten.com" data-description="Lebenswelten beschreiben die Gesamtheit der Erfahrungen, Beziehungen und Bedeutungen, in denen Menschen leben.">
             <img src="https://www.google.com/s2/favicons?domain=lebenswelten.com&sz=128" class="tile-icon" alt="Icon">
             <h3 class="tile-title">Lebenswelten<span class="tld">.com</span></h3>
         </div>
@@ -228,17 +230,17 @@
             <h3 class="tile-title">DenkLabor<span class="tld">.org</span></h3>
         </div>
 
-        <div class="project-card" data-name="Geisteswissen.de" data-color="#2563EB" data-url="https://geisteswissen.de" data-description="Geisteswissen.de versteht sich als eine Brücke zwischen normativer Welt und dem tiefen Bedürfnis nach innerer Sinnfindung und geistiger Freiheit.">
+        <div class="project-card" data-name="Geisteswissen.de" data-color="#2563EB" data-url="https://geisteswissen.de" data-description="Geisteswissen.de versteht sich als eine Brücke zwischen normativer Welt und dem tiefen Bedürfnis nach innerer Sinnfindung.">
             <img src="https://www.google.com/s2/favicons?domain=geisteswissen.de&sz=128" class="tile-icon" alt="Icon">
             <h3 class="tile-title">Geisteswissen<span class="tld">.de</span></h3>
         </div>
 
-        <div class="project-card" data-name="Gedankenwelten.com" data-color="#EA580C" data-url="https://gedankenwelten.com" data-description="Eine Plattform für reflektiertes Denken und bewusste Wahrnehmung. Sie zeigt auf, wie unterschiedlich Menschen ihre individuelle Wirklichkeit erleben.">
+        <div class="project-card" data-name="Gedankenwelten.com" data-color="#EA580C" data-url="https://gedankenwelten.com" data-description="Eine Plattform für reflektiertes Denken und bewusste Wahrnehmung. Sie zeigt auf, wie unterschiedlich Menschen ihre Wirklichkeit erleben.">
             <img src="https://www.google.com/s2/favicons?domain=gedankenwelten.com&sz=128" class="tile-icon" alt="Icon">
             <h3 class="tile-title">Gedankenwelten<span class="tld">.com</span></h3>
         </div>
 
-        <div class="project-card" data-name="DigitalLabor.eu" data-color="#0891B2" data-url="https://digitallabor.eu" data-description="Ein Denkraum, in dem digitale Wirklichkeiten geprüft und neu geordnet werden. Philosophie, Technologie und Gesellschaft treten hier in einen kritischen Dialog.">
+        <div class="project-card" data-name="DigitalLabor.eu" data-color="#0891B2" data-url="https://digitallabor.eu" data-description="Ein Denkraum, in dem digitale Wirklichkeiten geprüft und neu geordnet werden. Philosophie und Gesellschaft treten hier in Dialog.">
             <img src="https://www.google.com/s2/favicons?domain=digitallabor.eu&sz=128" class="tile-icon" alt="Icon">
             <h3 class="tile-title">DigitalLabor<span class="tld">.eu</span></h3>
         </div>
@@ -253,7 +255,7 @@
             <h3 class="tile-title">KunsTT<span class="tld">.de</span></h3>
         </div>
 
-        <div class="project-card" data-name="Freundschaft.org" data-color="#DB2777" data-url="https://freundschaft.org" data-description="Freundschaft ermöglicht authentische Selbstentfaltung durch Vertrauen und gegenseitige Anerkennung. Ein sozialer Raum für echtes Wachstum.">
+        <div class="project-card" data-name="Freundschaft.org" data-color="#DB2777" data-url="https://freundschaft.org" data-description="Freundschaft ermöglicht authentische Selbstentfaltung durch Vertrauen und gegenseitige Anerkennung. Ein Raum für echtes Wachstum.">
             <img src="https://www.google.com/s2/favicons?domain=freundschaft.org&sz=128" class="tile-icon" alt="Icon">
             <h3 class="tile-title">Freundschaft<span class="tld">.org</span></h3>
         </div>
@@ -263,7 +265,7 @@
             <h3 class="tile-title">SvenH<span class="tld">.de</span></h3>
         </div>
 
-        <div class="project-card" data-name="Svens.net" data-color="#65A30D" data-url="https://svens.net" data-description="Künstlerischer Freigeist als innere Haltung aus Eigenwahrnehmung und Mut. Eine Erforschung der Grenzen von Konvention und Kreativität.">
+        <div class="project-card" data-name="Svens.net" data-color="#65A30D" data-url="https://svens.net" data-description="Künstlerischer Freigeist als innere Haltung aus Eigenwahrnehmung und Mut. Eine Erforschung der Grenzen von Konvention.">
             <img src="https://www.google.com/s2/favicons?domain=svens.net&sz=128" class="tile-icon" alt="Icon">
             <h3 class="tile-title">Svens<span class="tld">.net</span></h3>
         </div>
@@ -298,31 +300,27 @@
         const modalIcon = document.getElementById('modal-icon');
         const closeBtn = document.getElementById('close-modal');
 
-        function fitText(element, container) {
-            let fontSize = 2.5; 
+        function fitText(element, container, baseSize = 2.5, paddingFactor = 0.88, minSize = 1.0) {
+            let fontSize = baseSize; 
             element.style.fontSize = fontSize + 'rem';
-            const maxAllowedWidth = container.offsetWidth * 0.88;
+            const maxAllowedWidth = container.offsetWidth * paddingFactor;
 
-            while (element.scrollWidth > maxAllowedWidth && fontSize > 0.4) {
-                fontSize -= 0.05;
+            while (element.scrollWidth > maxAllowedWidth && fontSize > minSize) {
+                fontSize -= 0.1;
                 element.style.fontSize = fontSize + 'rem';
             }
         }
 
         function scaleModalContent() {
             modalInner.style.transform = 'scale(1)';
-            
-            const availableHeight = window.innerHeight * 0.85; 
-            const availableWidth = window.innerWidth * 0.9;
-            
+            const availableHeight = window.innerHeight * 0.88; 
+            const availableWidth = window.innerWidth * 0.92;
             const currentHeight = modalInner.offsetHeight;
             const currentWidth = modalInner.offsetWidth;
 
             const scaleH = availableHeight / currentHeight;
             const scaleW = availableWidth / currentWidth;
-            
             let finalScale = Math.min(scaleH, scaleW, 1);
-            
             modalInner.style.transform = `scale(${finalScale})`;
         }
 
@@ -338,10 +336,14 @@
             modalIcon.src = iconSrc;
             
             modal.style.display = 'flex';
+            
             setTimeout(() => {
                 modal.classList.add('active');
+                // Modal-Titel Basisgröße erhöht
+                fitText(modalTitle, modalInner, 7, 0.95, 2.5); 
                 scaleModalContent();
             }, 10);
+            
             document.body.style.overflow = 'hidden';
         }
 
@@ -367,15 +369,16 @@
             });
 
             card.addEventListener('click', () => openModal(card));
-            fitText(title, card);
+            fitText(title, card, 2.0, 0.88, 0.6);
         });
 
         window.addEventListener('resize', () => {
             cards.forEach(card => {
                 const title = card.querySelector('.tile-title');
-                if (title) fitText(title, card);
+                if (title) fitText(title, card, 2.0, 0.88, 0.6);
             });
             if (modal.classList.contains('active')) {
+                fitText(modalTitle, modalInner, 7, 0.95, 2.5);
                 scaleModalContent();
             }
         });
