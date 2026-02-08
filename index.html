@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt Übersicht</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: none; 
+            box-shadow: inset 0 0 0 0.5px #f1f5f9;
+        }
+
+        .aspect-square {
+            aspect-ratio: 1 / 1;
+        }
+
+        #modal {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            overflow-y: auto;
+        }
+
+        #modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            transform: scale(1.02);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .tile-title {
+            white-space: nowrap;
+            display: inline-block;
+            line-height: 1;
+            padding: 0 10px;
+            width: auto;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        /* Icon-Styling: Normalzustand voll sichtbar */
+        .tile-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 25px;
+            opacity: 1; 
+            filter: contrast(1.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Hover-Effekt: Opazität erhöht auf 0.6 für besseren Kontrasterhalt */
+        .project-card:hover .tile-icon {
+            opacity: 0.6; 
+            transform: scale(1.1);
+        }
+
+        #modal-icon {
+            width: 128px;
+            height: 128px;
+            margin-bottom: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        #modal-text {
+            font-weight: 400;
+            color: #334155;
+            max-width: 800px;
+        }
+
+        #modal-title {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            hyphens: none;
+            white-space: normal;
+            word-break: keep-all;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <main id="grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-0 flex-grow">
+        
+        <div class="project-card aspect-square bg-white flex flex-col items-center justify-center text-center group"
+             data-name="Lebenswelten.com"
+             data-color="#7C3AED"
+             data-url="https://lebenswelten.com"
+             data-description="Lebenswelten beschreiben die Gesamtheit der Erfahrungen, Beziehungen und Bedeutungen, in denen Menschen leben. Sie strukturieren Wahrnehmung und Handeln.">
+            <img src="https://www.google.com/s2/favicons?domain=lebenswelten.com&sz=128" class="tile-icon" alt="Icon">
+            <h3 class="tile-title text-slate-800">Lebenswelten</h3>
+        </div>
+
+        <div class="project-card aspect-square bg-white flex flex-col items-center justify-center text-center group"
+             data-name="DenkLabor.org"
+             data-color="#DC2626"
+             data-url="https://denklabor.org"
+             data-description="Das DenkLabor ist ein interdisziplinärer Raum für die Transformation von Bewusstsein und Systemen. Bevor wir die Welt verändern können, müssen wir unsere Art zu denken verändern.">
+            <img src="https://www.google.com/s2/favicons?domain=denklabor.org&sz=128" class="tile-icon" alt="Icon">
+            <h3 class="tile-title text-slate-800">DenkLabor</h3>
+        </div>
+
+        <div class="project-card aspect-square bg-white flex flex-col items-center justify-center text-center group"
+             data-name="Geisteswissen.de"
+             data-color="#2563EB"
+             data-url="https://geisteswissen.de"
+             data-description="Geisteswissen.de versteht sich als eine Brücke, die zwischen der oft als starr empfundenen normativen Welt und dem tiefen Bedürfnis nach innerer Sinnfindung vermittelt.">
+            <img src="https://www.google.com/s2/favicons?domain=geisteswissen.de&sz=128" class="tile-icon" alt="Icon">
+            <h3 class="tile-title text-slate-800">Geisteswissen</h3>
+        </div>
+
+        <div class="project-card aspect-square bg-white flex flex-col items-center justify-center text-center group"
+             data-name="Gedankenwelten.com"
+             data-color="#EA580C"
+             data-url="https://gedankenwelten.com"
+             data-description="Eine Plattform für reflektiertes Denken und bewusste Wahrnehmung. Sie zeigt, wie unterschiedlich Menschen Wirklichkeit erleben – sachlich, persönlich, philosophisch.">
+            <img src="https://www.google.com/s2/favicons?domain=gedankenwelten.com&sz=128" class="tile-icon" alt="Icon">
+            <h3 class="tile-title text-slate-800">Gedankenwelten</h3>
+        </div>
+
+        <div class="project-card aspect-square bg-white flex flex-col items-center justify-center text-center group"
+             data-name="DigitalLabor.eu"
+             data-color="#0891B2"
+             data-url="https://digitallabor.eu"
+             data-description="Ein Denkraum, in dem digitale Wirklichkeiten geprüft und neu geordnet werden. Philosophie, Technologie und Gesellschaft treten in Dialog.">
+            <img src="https://www.google.com/s2/favicons?domain=digitallabor.eu&sz=128" class="tile-icon" alt="Icon">
+            <h3 class="tile-title text-slate-800">DigitalLabor</h3>
+        </div>
+
+        <div class="project-card aspect-square bg-white flex flex-col items-center justify-center text-center group"
+             data-name="Visionsuche.de"
+             data-color="#16A34A"
+             data-url="https://visionsuche.de"
+             data-description="Ein intensiver, zeitlich begrenzter Rückzug in die Natur, der dem Suchenden ermöglicht, Ablenkungen zu minimieren und innere Klarheit zu finden.">
+            <img src="https://www.google.com/s2/favicons?domain=visionsuche.de&sz=128" class="tile-icon" alt="Icon">
+            <h3 class="tile-title text-slate-800">Visionsuche</h3>
+        </div>
+
+        <div class="project-card aspect-square bg-white flex flex-col items-center justify-center text-center group"
+             data-name="KunsTT.de"
+             data-color="#EAB308"
+             data-url="https://kunstt.de"
+             data-description="Kunst entsteht dort, wo innerer Wirklichkeit Form findet. Sie verbindet Erfahrung, Empfindung und Bedeutung, ohne sich erklären zu müssen.">
+            <img src="https://www.google.com/s2/favicons?domain=kunstt.de&sz=128" class="tile-icon" alt="Icon">
+            <h3 class="tile-title text-slate-800">KunsTT</h3>
+        </div>
+
+        <div class="project-card aspect-square bg-white flex flex-col items-center justify-center text-center group"
+             data-name="Freundschaft.org"
+             data-color="#DB2777"
+             data-url="https://freundschaft.org"
+             data-description="Freundschaft ermöglicht authentische Selbstentfaltung in einem sozialen Raum durch gegenseitiges Vertrauen und freiwillige Anerkennung.">
+            <img src="https://www.google.com/s2/favicons?domain=freundschaft.org&sz=128" class="tile-icon" alt="Icon">
+            <h3 class="tile-title text-slate-800">Freundschaft</h3>
+        </div>
+
+        <div class="project-card aspect-square bg-white flex flex-col items-center justify-center text-center group"
+             data-name="SvenH.de"
+             data-color="#4F46E5"
+             data-url="https://svenh.de"
+             data-description="Meine persönliche Website – ein Überblick darüber, wer ich bin, was ich mache, womit ich mich beschäftige und welche Themen für mich wichtig sind.">
+            <img src="https://www.google.com/s2/favicons?domain=svenh.de&sz=128" class="tile-icon" alt="Icon">
+            <h3 class="tile-title text-slate-800">SvenH</h3>
+        </div>
+
+        <div class="project-card aspect-square bg-white flex flex-col items-center justify-center text-center group"
+             data-name="Svens.net"
+             data-color="#65A30D"
+             data-url="https://svens.net"
+             data-description="Künstlerischer Freigeist bezeichnet eine innere Haltung, die sich nicht an Konventionen bindet, sondern aus Eigenwahrnehmung und Mut schöpft.">
+            <img src="https://www.google.com/s2/favicons?domain=svens.net&sz=128" class="tile-icon" alt="Icon">
+            <h3 class="tile-title text-slate-800">Svens</h3>
+        </div>
+
+    </main>
+
+    <footer class="py-24 md:py-32 text-center">
+        <h4 class="text-slate-900 text-lg md:text-xl font-medium tracking-[0.3em] uppercase mb-4 font-sans">
+            Portfolio
+        </h4>
+        <div class="text-slate-500 text-xs md:text-sm tracking-[0.2em] uppercase font-light">
+            2026 &mdash; Projekte von Sven
+        </div>
+    </footer>
+
+    <div id="modal" class="fixed inset-0 z-50 flex flex-col items-center justify-start md:justify-center bg-white p-6">
+        <div id="modal-accent-bar" class="fixed top-0 left-0 h-3 w-full"></div>
+        
+        <button id="close-modal" class="fixed top-6 right-6 text-slate-300 hover:text-slate-900 p-2 transition-colors z-[60]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+
+        <div class="modal-content w-full max-w-7xl pt-24 pb-12 md:py-0 flex flex-col items-center justify-center text-center">
+            <img id="modal-icon" src="" alt="Icon">
+            <h2 id="modal-title" class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl mb-6 md:mb-8 leading-tight w-full px-4"></h2>
+            <p id="modal-text" class="text-lg sm:text-xl md:text-2xl lg:text-2xl leading-relaxed mb-10 md:mb-14 mx-auto px-4"></p>
+            <a id="modal-link" href="#" target="_blank" class="inline-block py-4 px-10 md:py-5 md:px-12 text-sm md:text-base font-bold uppercase tracking-widest text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm hover:shadow-md">
+                Website Besuchen
+            </a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const cards = document.querySelectorAll('.project-card');
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalText = document.getElementById('modal-text');
+        const modalLink = document.getElementById('modal-link');
+        const modalAccent = document.getElementById('modal-accent-bar');
+        const modalIcon = document.getElementById('modal-icon');
+        const closeBtn = document.getElementById('close-modal');
+
+        function fitText(element, container) {
+            let fontSize = 2.5; 
+            element.style.fontSize = fontSize + 'rem';
+            const maxAllowedWidth = container.offsetWidth * 0.82;
+
+            while (element.scrollWidth > maxAllowedWidth && fontSize > 0.4) {
+                fontSize -= 0.05;
+                element.style.fontSize = fontSize + 'rem';
+            }
+        }
+
+        function openModal(card) {
+            const data = card.dataset;
+            const iconSrc = card.querySelector('.tile-icon').src;
+            
+            modalTitle.innerText = data.name;
+            modalText.innerText = data.description;
+            modalLink.href = data.url;
+            modalLink.style.backgroundColor = data.color;
+            modalAccent.style.backgroundColor = data.color;
+            modalIcon.src = iconSrc;
+            
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 400);
+        }
+
+        cards.forEach(card => {
+            const color = card.dataset.color;
+            const title = card.querySelector('.tile-title');
+
+            card.addEventListener('mouseenter', () => {
+                card.style.backgroundColor = color;
+                card.style.boxShadow = 'none';
+                title.style.color = 'white';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.backgroundColor = 'white';
+                card.style.boxShadow = 'inset 0 0 0 0.5px #f1f5f9';
+                title.style.color = '#1e293b';
+            });
+
+            card.addEventListener('click', () => openModal(card));
+            fitText(title, card);
+        });
+
+        window.addEventListener('resize', () => {
+            cards.forEach(card => {
+                const title = card.querySelector('.tile-title');
+                if (title) fitText(title, card);
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>
