@@ -23,7 +23,7 @@
             min-height: 100vh;
         }
 
-        /* GRID SYSTEM - Angepasst für größere Kacheln */
+        /* GRID SYSTEM */
         main {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -114,7 +114,7 @@
             inset: 0;
             z-index: 50;
             background-color: #ffffff;
-            padding: 2rem;
+            padding: 5vh 5vw;
             transition: opacity 0.4s ease;
             overflow: hidden;
             align-items: center;
@@ -134,8 +134,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             transform-origin: center center;
+            will-change: transform;
         }
 
         #modal-accent-bar {
@@ -162,11 +163,13 @@
         #close-modal:hover { color: #0f172a; }
 
         #modal-icon {
-            width: min(160px, 18vh);
+            width: 160px;
             height: auto;
-            margin-bottom: 2rem;
+            max-height: 15vh;
+            margin-bottom: 2vh;
             border-radius: 24px;
             box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+            object-fit: contain;
         }
 
         #modal-title {
@@ -175,36 +178,41 @@
             letter-spacing: 0.03em;
             text-transform: uppercase;
             line-height: 1.1;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2vh;
             padding: 0 1rem;
             width: 100%;
-            font-size: clamp(1.8rem, 8vh, 5.5rem);
+            font-size: clamp(1.8rem, 7vh, 5rem);
         }
 
         #modal-text {
             font-weight: 400;
             color: #334155;
-            max-width: 900px;
+            max-width: 850px;
             line-height: 1.4;
-            margin-bottom: 2.5rem;
+            margin-bottom: 4vh;
             padding: 0 1.5rem;
-            font-size: clamp(1.2rem, 3.8vh, 2.2rem);
+            font-size: clamp(1.1rem, 3.5vh, 2rem);
         }
 
+        /* VERGRÖSSERTER BUTTON */
         #modal-link {
             display: inline-block;
-            padding: 1.25rem 3.5rem;
+            padding: 2.2vh 6vw; /* Deutlich größeres Padding */
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             color: #ffffff;
             text-decoration: none;
-            border-radius: 0.25rem;
-            font-size: 1.1rem;
+            border-radius: 0.5rem; /* Etwas weichere Ecken */
+            font-size: clamp(1.1rem, 2.8vh, 1.6rem); /* Größere Schrift */
             transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        #modal-link:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        #modal-link:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15); 
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -303,13 +311,19 @@
 
         function scaleModalContent() {
             modalInner.style.transform = 'scale(1)';
-            const viewportHeight = window.innerHeight * 0.85; 
-            const contentHeight = modalInner.offsetHeight;
+            
+            const availableHeight = window.innerHeight * 0.85; 
+            const availableWidth = window.innerWidth * 0.9;
+            
+            const currentHeight = modalInner.offsetHeight;
+            const currentWidth = modalInner.offsetWidth;
 
-            if (contentHeight > viewportHeight) {
-                const scale = viewportHeight / contentHeight;
-                modalInner.style.transform = `scale(${scale})`;
-            }
+            const scaleH = availableHeight / currentHeight;
+            const scaleW = availableWidth / currentWidth;
+            
+            let finalScale = Math.min(scaleH, scaleW, 1);
+            
+            modalInner.style.transform = `scale(${finalScale})`;
         }
 
         function openModal(card) {
