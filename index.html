@@ -185,8 +185,9 @@
             margin-bottom: 3vh;
             padding: 0 1rem;
             width: 100%;
-            white-space: normal;
-            word-break: keep-all;
+            /* Fix: white-space nowrap damit fitText korrekt funktioniert */
+            white-space: nowrap;
+            display: inline-block;
             font-size: clamp(2.5rem, 10vh, 7rem);
         }
 
@@ -342,7 +343,8 @@
             
             setTimeout(() => {
                 modal.classList.add('active');
-                fitText(modalTitle, modalInner, 7, 0.95, 2.5); 
+                // Nutze fitText für den Modal-Titel wie in den Kacheln
+                fitText(modalTitle, modalInner, 7, 0.9, 1.2); 
                 scaleModalContent();
             }, 10);
             
@@ -380,7 +382,7 @@
                 if (title) fitText(title, card, 2.0, 0.88, 0.6);
             });
             if (modal.classList.contains('active')) {
-                fitText(modalTitle, modalInner, 7, 0.95, 2.5);
+                fitText(modalTitle, modalInner, 7, 0.9, 1.2);
                 scaleModalContent();
             }
         });
