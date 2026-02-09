@@ -67,7 +67,8 @@
             color: #1e293b;
         }
 
-        .tile-title .tld {
+        /* TLD Styling für Kacheln und Modal-Titel */
+        .tile-title .tld, #modal-title .tld {
             font-size: 0.6em;
             opacity: 0.8;
             margin-left: 2px;
@@ -184,11 +185,11 @@
             line-height: 1.05;
             margin-bottom: 3vh;
             padding: 0 1rem;
-            width: 100%;
+            width: auto;
+            max-width: 100%;
             /* Fix: white-space nowrap damit fitText korrekt funktioniert */
             white-space: nowrap;
             display: inline-block;
-            font-size: clamp(2.5rem, 10vh, 7rem);
         }
 
         #modal-text {
@@ -332,7 +333,14 @@
             const data = card.dataset;
             const iconSrc = card.querySelector('.tile-icon').src;
             
-            modalTitle.innerText = data.name;
+            // Titel mit kleinem TLD formatieren
+            const nameParts = data.name.split('.');
+            if (nameParts.length > 1) {
+                modalTitle.innerHTML = `${nameParts[0]}<span class="tld">.${nameParts[1]}</span>`;
+            } else {
+                modalTitle.innerText = data.name;
+            }
+
             modalText.innerText = data.description;
             modalLink.href = data.url;
             modalLink.style.backgroundColor = data.color;
@@ -343,8 +351,8 @@
             
             setTimeout(() => {
                 modal.classList.add('active');
-                // Nutze fitText für den Modal-Titel wie in den Kacheln
-                fitText(modalTitle, modalInner, 7, 0.9, 1.2); 
+                // FitText für den Modal-Titel mit aggressivem Padding-Faktor und niedrigerer Untergrenze
+                fitText(modalTitle, modalInner, 7, 0.85, 0.8); 
                 scaleModalContent();
             }, 10);
             
@@ -382,7 +390,7 @@
                 if (title) fitText(title, card, 2.0, 0.88, 0.6);
             });
             if (modal.classList.contains('active')) {
-                fitText(modalTitle, modalInner, 7, 0.9, 1.2);
+                fitText(modalTitle, modalInner, 7, 0.85, 0.8);
                 scaleModalContent();
             }
         });
