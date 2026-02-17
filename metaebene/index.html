@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metaebene | 2k7.de</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1 {
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            /* Ein tiefes, sattes Dunkelblau */
+            color: #002b80;
+        }
+
+        .text-balance {
+            text-wrap: balance;
+        }
+
+        .content-container {
+            max-width: 680px;
+        }
+
+        .footer-border {
+            border-top: 2px solid #1a1a1a;
+        }
+
+        .accent-bar {
+            background-color: #002b80;
+        }
+    </style>
+</head>
+<body class="selection:bg-blue-100 selection:text-blue-900">
+
+    <main class="flex-grow flex items-center justify-center p-8 md:p-16">
+        <div class="content-container w-full">
+            <header class="mb-12">
+                <h1 class="text-5xl sm:text-6xl md:text-8xl mb-4 leading-none">
+                    Metaebene
+                </h1>
+                <div class="h-3 w-24 accent-bar"></div>
+            </header>
+
+            <article class="space-y-12 text-xl md:text-2xl leading-snug font-normal tracking-tight">
+                <p class="text-balance">
+                    Metaebene heißt: nicht nur sehen, was passiert, sondern verstehen, wie es zustande kommt. 
+                    Statt sich an einzelnen Fakten festzuhalten, schaut man auf die Strukturen dahinter. 
+                    Man fragt: Welches Muster zeigt sich hier? Welche Logik verbindet die Ereignisse? 
+                    Welche unsichtbaren Regeln bestimmen, wie Menschen handeln?
+                </p>
+
+                <p class="text-balance">
+                    Wer auf dieser Ebene denkt, betrachtet Situationen wie ein Gesamtbild statt wie einzelne Punkte. 
+                    Dadurch wird verständlich, warum Dinge sich wiederholen, warum Konflikte entstehen oder warum etwas funktioniert. 
+                    Meta-Denken bedeutet also, die verborgene Ordnung hinter dem Offensichtlichen zu erkennen und bewusst zu deuten.
+                </p>
+            </article>
+
+            <footer class="mt-24 pt-6 footer-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-[0.75rem] uppercase tracking-[0.25em] font-bold">
+                <div>
+                    <span class="bg-black text-white px-2 py-1 mr-2">2k7.de</span> Metaebene
+                </div>
+                <div class="font-mono tracking-normal text-neutral-400">
+                    2026-02-17
+                </div>
+            </footer>
+        </div>
+    </main>
+
+</body>
+</html>
