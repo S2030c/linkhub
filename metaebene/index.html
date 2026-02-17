@@ -4,57 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metaebene | 2k7.de</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        /* Grundlegende Resets und Variablen */
+        :root {
+            --primary-blue: #002b80;
+            --text-dark: #1a1a1a;
+            --text-muted: #a3a3a3;
+            --bg-white: #ffffff;
+            --max-width: 680px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: #ffffff;
-            color: #1a1a1a;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background-color: #dbeafe; /* bg-blue-100 */
+            color: #1e3a8a; /* text-blue-900 */
+        }
+
+        /* Layout */
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: var(--max-width);
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 3rem;
         }
 
         h1 {
             font-family: 'Archivo Black', sans-serif;
             text-transform: uppercase;
             letter-spacing: -0.02em;
-            /* Ein tiefes, sattes Dunkelblau */
-            color: #002b80;
+            color: var(--primary-blue);
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            /* Etwas kleinere Skalierung als zuvor (war 5xl bis 8xl) */
+            font-size: clamp(2.5rem, 8vw, 5rem);
+        }
+
+        .accent-bar {
+            height: 12px;
+            width: 96px;
+            background-color: var(--primary-blue);
+        }
+
+        /* Textinhalt */
+        article {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            /* Etwas kleinere Schrift (war text-xl bis text-2xl) */
+            font-size: clamp(1.1rem, 4vw, 1.25rem);
+            line-height: 1.5;
+            font-weight: 400;
+            tracking: -0.01em;
         }
 
         .text-balance {
             text-wrap: balance;
         }
 
-        .content-container {
-            max-width: 680px;
+        /* Footer */
+        footer {
+            margin-top: 6rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            font-weight: 700;
         }
 
-        .footer-border {
-            border-top: 2px solid #1a1a1a;
+        .footer-brand {
+            display: flex;
+            align-items: center;
         }
 
-        .accent-bar {
-            background-color: #002b80;
+        .badge {
+            background-color: #000;
+            color: #fff;
+            padding: 0.25rem 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .footer-date {
+            font-family: monospace;
+            letter-spacing: normal;
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        /* Responsive Anpassungen */
+        @media (min-width: 640px) {
+            footer {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            main {
+                padding: 4rem;
+            }
         }
     </style>
 </head>
-<body class="selection:bg-blue-100 selection:text-blue-900">
+<body>
 
-    <main class="flex-grow flex items-center justify-center p-8 md:p-16">
-        <div class="content-container w-full">
-            <header class="mb-12">
-                <h1 class="text-5xl sm:text-6xl md:text-8xl mb-4 leading-none">
-                    Metaebene
-                </h1>
-                <div class="h-3 w-24 accent-bar"></div>
+    <main>
+        <div class="content-container">
+            <header>
+                <h1>Metaebene</h1>
+                <div class="accent-bar"></div>
             </header>
 
-            <article class="space-y-12 text-xl md:text-2xl leading-snug font-normal tracking-tight">
+            <article>
                 <p class="text-balance">
                     Metaebene heißt: nicht nur sehen, was passiert, sondern verstehen, wie es zustande kommt. 
                     Statt sich an einzelnen Fakten festzuhalten, schaut man auf die Strukturen dahinter. 
@@ -69,11 +160,11 @@
                 </p>
             </article>
 
-            <footer class="mt-24 pt-6 footer-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-[0.75rem] uppercase tracking-[0.25em] font-bold">
-                <div>
-                    <span class="bg-black text-white px-2 py-1 mr-2">2k7.de</span> Metaebene
+            <footer>
+                <div class="footer-brand">
+                    <span class="badge">2k7.de</span> Metaebene
                 </div>
-                <div class="font-mono tracking-normal text-neutral-400">
+                <div class="footer-date">
                     2026-02-17
                 </div>
             </footer>
