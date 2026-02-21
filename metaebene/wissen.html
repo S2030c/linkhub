@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metaebene | 2k7.de</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Grundlegende Resets und Variablen */
+        :root {
+            --primary-blue: #002b80;
+            --text-dark: #1a1a1a;
+            --text-muted: #a3a3a3;
+            --bg-white: #ffffff;
+            --max-width: 680px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background-color: #dbeafe;
+            color: #1e3a8a;
+        }
+
+        /* Burger Menu Styles */
+        .menu-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            background: transparent; /* Hintergrund entfernt für cleaner Look */
+            border: none;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px; /* Etwas engerer Gap für die fetteren Balken */
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px; /* Etwas breiter */
+            height: 4px; /* Fetter (vorher 2px) */
+            background-color: #000; /* Schwarz statt Blau */
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        /* Toggle Animation Anpassung an die neue Dicke */
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Navigation Overlay */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-white);
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-links {
+            list-style: none;
+            text-align: center;
+        }
+
+        .nav-links li {
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .nav-links a {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2rem, 10vw, 4rem);
+            text-decoration: none;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            display: block;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .nav-overlay.active .nav-links a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-links li:nth-child(1) a { transition-delay: 0.1s; }
+        .nav-links li:nth-child(2) a { transition-delay: 0.2s; }
+        .nav-links li:nth-child(3) a { transition-delay: 0.3s; }
+        .nav-links li:nth-child(4) a { transition-delay: 0.4s; }
+
+        .nav-links a:hover {
+            color: var(--text-dark);
+            transform: skewX(-5deg);
+        }
+
+        /* Main Layout */
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: var(--max-width);
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--primary-blue);
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+        }
+
+        .accent-bar {
+            height: 12px;
+            width: 96px;
+            background-color: var(--primary-blue);
+        }
+
+        /* Textinhalt */
+        article {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            font-size: clamp(1.1rem, 4vw, 1.25rem);
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .text-balance {
+            text-wrap: balance;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 6rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            font-weight: 700;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .badge {
+            background-color: #000;
+            color: #fff;
+            padding: 0.25rem 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .footer-date {
+            font-family: monospace;
+            letter-spacing: normal;
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        /* Responsive */
+        @media (min-width: 640px) {
+            footer {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            main {
+                padding: 4rem;
+            }
+            .menu-toggle {
+                top: 4rem;
+                right: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Burger Button -->
+    <button class="menu-toggle" aria-label="Menü öffnen" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Navigation Overlay -->
+    <nav class="nav-overlay" id="navOverlay">
+        <ul class="nav-links">
+            <li><a href="/metaebene">Home</a></li>
+            <li><a href="sinn.html">Sinn</a></li>
+            <li><a href="wissen.html">Sinn</a></li>
+
+        </ul>
+    </nav>
+
+    <main>
+        <div class="content-container">
+            <header>
+                <h1>Wissen</h1>
+                <div class="accent-bar"></div>
+            </header>
+
+            <article>
+                <p class="text-balance">
+                    Jeder Mensch sollte sich klar darüber sein, 
+                    niemals irgendwelche Lehren politischer, philosophischer, sektiererischer, 
+                    weltlicher, wissenschaftlicher, religiöser oder sonstig ideologischer Form 
+                    als «wahre Wahrheit» oder als «wirkliches, wahres Wissen» usw. anzunehmen und 
+                    zu verstehen.
+                </p>
+
+                <p class="text-balance">
+                     Was wahrheitlich sein soll, muss bei jeder Lehre bis ins letzte Detail hinterfragt werden, 
+                     denn nur dadurch eine "effective eigentliche Wahrheit" ergründet und die (eigene) Wirklichkeit 
+                     in Erfahrung gebracht werden kann. 
+                </p>
+
+            </article>
+
+            <footer>
+                <div class="footer-brand">
+                    <span class="badge">2k7.de</span> Metaebene
+                </div>
+                <div class="footer-date">
+                    2026-02-20
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navOverlay = document.getElementById('navOverlay');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        function toggleMenu() {
+            menuToggle.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            
+            document.body.style.overflow = navOverlay.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMenu();
+            });
+        });
+    </script>
+
+</body>
+</html>
