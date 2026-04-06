@@ -1,4 +1,4 @@
-     /* Grundlegende Resets und Variablen */
+        /* Grundlegende Resets und Variablen */
         :root {
             --primary-blue: #002b80;
             --text-dark: #1a1a1a;
@@ -12,8 +12,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* Aggressiver Umbruch für alle Elemente */
             overflow-wrap: anywhere; 
-            word-break: normal;
+            word-break: break-word; /* Bricht Wörter nur wenn nötig */
         }
 
         body {
@@ -25,8 +26,15 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            /* Silbentrennung als primäre Option */
             hyphens: auto;
             -webkit-hyphens: auto;
+        }
+
+        /* Spezielle Behandlung für Überschriften, um Layout-Brüche zu verhindern */
+        h1, h2, h3 {
+            word-break: break-word;
+            overflow-wrap: anywhere;
         }
 
         ::selection {
@@ -42,7 +50,7 @@
             padding: 1.5rem 1.5rem 0 1.5rem;
         }
 
-        /* Burger Menu Button (Nicht mehr fixed) */
+        /* Burger Menu Button */
         .menu-toggle {
             position: relative;
             z-index: 1000;
@@ -79,7 +87,7 @@
             transform: translateY(-9px) rotate(-45deg);
         }
 
-        /* Navigation Overlay (Bleibt fixed, um den Screen zu füllen) */
+        /* Navigation Overlay */
         .nav-overlay {
             position: fixed;
             top: 0;
@@ -144,7 +152,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Normales Padding, da der Button oben Platz wegnimmt */
             padding: 2rem 1.5rem; 
         }
 
@@ -166,9 +173,9 @@
             line-height: 1.0; 
             margin-bottom: 1rem;
             font-size: clamp(1.8rem, 12vw, 5rem); 
+            /* Absolute Sicherheit für die Überschrift */
+            word-break: break-word;
             overflow-wrap: anywhere;
-            word-wrap: break-word;
-            word-break: normal;
             hyphens: auto;
         }
 
@@ -186,7 +193,6 @@
             font-size: clamp(1.2rem, 4.5vw, 1.35rem);
             line-height: 1.6;
             font-weight: 400;
-            overflow-wrap: anywhere;
             hyphens: auto;
         }
 
