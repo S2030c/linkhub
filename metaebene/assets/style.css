@@ -1,4 +1,4 @@
- /* Grundlegende Resets und Variablen */
+  /* Grundlegende Resets und Variablen */
         :root {
             --primary-blue: #002b80;
             --text-dark: #1a1a1a;
@@ -33,10 +33,10 @@
         /* Burger Menu Styles */
         .menu-toggle {
             position: fixed;
-            top: 2rem;
-            right: 2rem;
+            top: 1.5rem; /* Etwas kompakter auf Mobil */
+            right: 1.5rem;
             z-index: 1000;
-            background: transparent; /* Hintergrund entfernt für cleaner Look */
+            background: transparent;
             border: none;
             cursor: pointer;
             width: 44px;
@@ -45,21 +45,20 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 5px; /* Etwas engerer Gap für die fetteren Balken */
+            gap: 5px;
             border-radius: 4px;
             transition: var(--transition);
         }
 
         .menu-toggle span {
             display: block;
-            width: 28px; /* Etwas breiter */
-            height: 4px; /* Fetter (vorher 2px) */
-            background-color: #000; /* Schwarz statt Blau */
+            width: 28px;
+            height: 4px;
+            background-color: #000;
             transition: var(--transition);
             transform-origin: center;
         }
 
-        /* Toggle Animation Anpassung an die neue Dicke */
         .menu-toggle.active span:nth-child(1) {
             transform: translateY(9px) rotate(45deg);
         }
@@ -135,7 +134,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: 5rem 1.5rem 2rem 1.5rem; /* Oben Platz für Menü auf Mobil */
         }
 
         .content-container {
@@ -153,9 +152,12 @@
             text-transform: uppercase;
             letter-spacing: -0.02em;
             color: var(--primary-blue);
-            line-height: 0.9;
+            line-height: 1.0; /* Etwas mehr Luft für Mobil-Umbruch */
             margin-bottom: 1rem;
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            /* Verhindert das Rausfließen auf schmalen Screens */
+            font-size: clamp(1.8rem, 12vw, 5rem); 
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .accent-bar {
@@ -169,8 +171,9 @@
             display: flex;
             flex-direction: column;
             gap: 2.5rem;
-            font-size: clamp(1.1rem, 4vw, 1.25rem);
-            line-height: 1.5;
+            /* Etwas größere Schrift für Mobil gewünscht */
+            font-size: clamp(1.2rem, 4.5vw, 1.35rem);
+            line-height: 1.6;
             font-weight: 400;
         }
 
@@ -211,18 +214,22 @@
             font-weight: normal;
         }
 
-        /* Responsive */
+        /* Desktop Anpassungen */
         @media (min-width: 640px) {
-            footer {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
             main {
                 padding: 4rem;
             }
             .menu-toggle {
                 top: 4rem;
                 right: 4rem;
+            }
+            h1 {
+                line-height: 0.9;
+                font-size: clamp(2.5rem, 8vw, 5rem);
+            }
+            footer {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
             }
         }
