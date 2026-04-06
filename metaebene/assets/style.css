@@ -12,6 +12,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* Verhindert, dass extrem lange Wörter das Layout sprengen */
+            overflow-wrap: break-word;
         }
 
         body {
@@ -23,6 +25,9 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            /* Aktiviert die automatische Silbentrennung für Deutsch */
+            hyphens: auto;
+            -webkit-hyphens: auto;
         }
 
         ::selection {
@@ -152,12 +157,13 @@
             text-transform: uppercase;
             letter-spacing: -0.02em;
             color: var(--primary-blue);
-            line-height: 1.0; /* Etwas mehr Luft für Mobil-Umbruch */
+            line-height: 1.0; 
             margin-bottom: 1rem;
             /* Verhindert das Rausfließen auf schmalen Screens */
             font-size: clamp(1.8rem, 12vw, 5rem); 
             word-wrap: break-word;
             overflow-wrap: break-word;
+            hyphens: auto;
         }
 
         .accent-bar {
@@ -171,10 +177,12 @@
             display: flex;
             flex-direction: column;
             gap: 2.5rem;
-            /* Etwas größere Schrift für Mobil gewünscht */
             font-size: clamp(1.2rem, 4.5vw, 1.35rem);
             line-height: 1.6;
             font-weight: 400;
+            /* Explizite Sicherung für Fließtext */
+            overflow-wrap: break-word;
+            hyphens: auto;
         }
 
         .text-balance {
