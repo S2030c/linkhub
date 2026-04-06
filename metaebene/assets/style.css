@@ -1,4 +1,4 @@
-  /* Grundlegende Resets und Variablen */
+       /* Grundlegende Resets und Variablen */
         :root {
             --primary-blue: #002b80;
             --text-dark: #1a1a1a;
@@ -12,8 +12,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* Verhindert, dass extrem lange Wörter das Layout sprengen */
-            overflow-wrap: break-word;
+            /* Zwingt lange Wörter zum Umbruch, bevor sie das Layout sprengen */
+            overflow-wrap: anywhere; 
+            word-break: normal;
         }
 
         body {
@@ -25,7 +26,7 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
-            /* Aktiviert die automatische Silbentrennung für Deutsch */
+            /* Silbentrennung für deutsche Texte */
             hyphens: auto;
             -webkit-hyphens: auto;
         }
@@ -38,7 +39,7 @@
         /* Burger Menu Styles */
         .menu-toggle {
             position: fixed;
-            top: 1.5rem; /* Etwas kompakter auf Mobil */
+            top: 1.5rem;
             right: 1.5rem;
             z-index: 1000;
             background: transparent;
@@ -139,7 +140,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5rem 1.5rem 2rem 1.5rem; /* Oben Platz für Menü auf Mobil */
+            /* 5rem padding rechts schützt den Bereich des fixed Menu-Buttons */
+            padding: 6rem 1.5rem 2rem 1.5rem; 
         }
 
         .content-container {
@@ -150,6 +152,8 @@
         /* Header */
         header {
             margin-bottom: 3rem;
+            /* Zusätzliche Sicherheit: Header selbst lässt Platz für den Button */
+            padding-right: 3rem; 
         }
 
         h1 {
@@ -159,10 +163,11 @@
             color: var(--primary-blue);
             line-height: 1.0; 
             margin-bottom: 1rem;
-            /* Verhindert das Rausfließen auf schmalen Screens */
             font-size: clamp(1.8rem, 12vw, 5rem); 
+            /* Harte Umbruchregeln für alle Viewports */
+            overflow-wrap: anywhere;
             word-wrap: break-word;
-            overflow-wrap: break-word;
+            word-break: normal;
             hyphens: auto;
         }
 
@@ -180,8 +185,7 @@
             font-size: clamp(1.2rem, 4.5vw, 1.35rem);
             line-height: 1.6;
             font-weight: 400;
-            /* Explizite Sicherung für Fließtext */
-            overflow-wrap: break-word;
+            overflow-wrap: anywhere;
             hyphens: auto;
         }
 
@@ -225,7 +229,11 @@
         /* Desktop Anpassungen */
         @media (min-width: 640px) {
             main {
-                padding: 4rem;
+                /* Auf Desktop mehr Padding rechts, um Kollision mit Button zu vermeiden */
+                padding: 4rem 6rem 4rem 4rem; 
+            }
+            header {
+                padding-right: 0;
             }
             .menu-toggle {
                 top: 4rem;
