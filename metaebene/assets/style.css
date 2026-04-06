@@ -1,4 +1,4 @@
-       /* Grundlegende Resets und Variablen */
+     /* Grundlegende Resets und Variablen */
         :root {
             --primary-blue: #002b80;
             --text-dark: #1a1a1a;
@@ -12,7 +12,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* Zwingt lange Wörter zum Umbruch, bevor sie das Layout sprengen */
             overflow-wrap: anywhere; 
             word-break: normal;
         }
@@ -26,7 +25,6 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
-            /* Silbentrennung für deutsche Texte */
             hyphens: auto;
             -webkit-hyphens: auto;
         }
@@ -36,11 +34,17 @@
             color: #1e3a8a;
         }
 
-        /* Burger Menu Styles */
+        /* Menü-Block (Der umrechende Block oben) */
+        .top-bar {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 1.5rem 1.5rem 0 1.5rem;
+        }
+
+        /* Burger Menu Button (Nicht mehr fixed) */
         .menu-toggle {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
+            position: relative;
             z-index: 1000;
             background: transparent;
             border: none;
@@ -75,7 +79,7 @@
             transform: translateY(-9px) rotate(-45deg);
         }
 
-        /* Navigation Overlay */
+        /* Navigation Overlay (Bleibt fixed, um den Screen zu füllen) */
         .nav-overlay {
             position: fixed;
             top: 0;
@@ -140,8 +144,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* 5rem padding rechts schützt den Bereich des fixed Menu-Buttons */
-            padding: 6rem 1.5rem 2rem 1.5rem; 
+            /* Normales Padding, da der Button oben Platz wegnimmt */
+            padding: 2rem 1.5rem; 
         }
 
         .content-container {
@@ -152,8 +156,6 @@
         /* Header */
         header {
             margin-bottom: 3rem;
-            /* Zusätzliche Sicherheit: Header selbst lässt Platz für den Button */
-            padding-right: 3rem; 
         }
 
         h1 {
@@ -164,7 +166,6 @@
             line-height: 1.0; 
             margin-bottom: 1rem;
             font-size: clamp(1.8rem, 12vw, 5rem); 
-            /* Harte Umbruchregeln für alle Viewports */
             overflow-wrap: anywhere;
             word-wrap: break-word;
             word-break: normal;
@@ -228,16 +229,11 @@
 
         /* Desktop Anpassungen */
         @media (min-width: 640px) {
+            .top-bar {
+                padding: 4rem 4rem 0 4rem;
+            }
             main {
-                /* Auf Desktop mehr Padding rechts, um Kollision mit Button zu vermeiden */
-                padding: 4rem 6rem 4rem 4rem; 
-            }
-            header {
-                padding-right: 0;
-            }
-            .menu-toggle {
-                top: 4rem;
-                right: 4rem;
+                padding: 2rem 4rem 4rem 4rem; 
             }
             h1 {
                 line-height: 0.9;
