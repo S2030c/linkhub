@@ -1,4 +1,4 @@
-        /* Grundlegende Resets und Variablen */
+    /* Grundlegende Resets und Variablen */
         :root {
             --primary-blue: #002b80;
             --text-dark: #1a1a1a;
@@ -12,9 +12,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* Aggressiver Umbruch für alle Elemente */
             overflow-wrap: anywhere; 
-            word-break: break-word; /* Bricht Wörter nur wenn nötig */
+            word-break: break-word;
         }
 
         body {
@@ -26,12 +25,10 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
-            /* Silbentrennung als primäre Option */
             hyphens: auto;
             -webkit-hyphens: auto;
         }
 
-        /* Spezielle Behandlung für Überschriften, um Layout-Brüche zu verhindern */
         h1, h2, h3 {
             word-break: break-word;
             overflow-wrap: anywhere;
@@ -42,7 +39,7 @@
             color: #1e3a8a;
         }
 
-        /* Menü-Block (Der umrechende Block oben) */
+        /* Menü-Block oben */
         .top-bar {
             width: 100%;
             display: flex;
@@ -50,7 +47,6 @@
             padding: 1.5rem 1.5rem 0 1.5rem;
         }
 
-        /* Burger Menu Button */
         .menu-toggle {
             position: relative;
             z-index: 1000;
@@ -77,15 +73,9 @@
             transform-origin: center;
         }
 
-        .menu-toggle.active span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .menu-toggle.active span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
+        .menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
         /* Navigation Overlay */
         .nav-overlay {
@@ -136,11 +126,6 @@
             transform: translateY(0);
         }
 
-        .nav-links li:nth-child(1) a { transition-delay: 0.1s; }
-        .nav-links li:nth-child(2) a { transition-delay: 0.2s; }
-        .nav-links li:nth-child(3) a { transition-delay: 0.3s; }
-        .nav-links li:nth-child(4) a { transition-delay: 0.4s; }
-
         .nav-links a:hover {
             color: var(--text-dark);
             transform: skewX(-5deg);
@@ -173,7 +158,6 @@
             line-height: 1.0; 
             margin-bottom: 1rem;
             font-size: clamp(1.8rem, 12vw, 5rem); 
-            /* Absolute Sicherheit für die Überschrift */
             word-break: break-word;
             overflow-wrap: anywhere;
             hyphens: auto;
@@ -203,15 +187,26 @@
         /* Footer */
         footer {
             margin-top: 6rem;
-            padding-top: 1.5rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
             border-top: 2px solid var(--text-dark);
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            flex-wrap: wrap; /* Erlaubt das Rutschen der Blöcke in die nächste Zeile */
+            gap: 2rem;
+            align-items: center;
+            justify-content: space-between;
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.25em;
             font-weight: 700;
+        }
+
+        /* Verhindert Wortumbruch in den Footer-Blöcken */
+        .footer-brand, .footer-nav, .footer-date {
+            white-space: nowrap;
+            overflow-wrap: normal;
+            word-break: normal;
+            hyphens: none;
         }
 
         .footer-brand {
@@ -224,6 +219,25 @@
             color: #fff;
             padding: 0.25rem 0.5rem;
             margin-right: 0.5rem;
+        }
+
+        /* Footer Navigation */
+        .footer-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: var(--transition);
+            border-bottom: 1px solid transparent;
+        }
+
+        .footer-nav a:hover {
+            color: var(--primary-blue);
+            border-bottom: 1px solid var(--primary-blue);
         }
 
         .footer-date {
@@ -245,9 +259,16 @@
                 line-height: 0.9;
                 font-size: clamp(2.5rem, 8vw, 5rem);
             }
+        }
+
+        /* Spezifische Footer-Anpassung für sehr schmale Screens */
+        @media (max-width: 500px) {
             footer {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+            .footer-nav ul {
+                flex-direction: column;
+                gap: 0.75rem;
             }
         }
