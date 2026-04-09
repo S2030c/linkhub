@@ -37,6 +37,7 @@
         strong {
             font-weight: 400;
             color: #111;
+            letter-spacing: 0.1em;
         }
 
         ::selection {
